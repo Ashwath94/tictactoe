@@ -113,38 +113,29 @@ function reRenderAfterWinnerDeclaration(title) {
     addClickHandlers();
 }
 function checkLogics(array) {
-    array.sort();
-    let temp = array[0];
-    let flag  =false;
-    for(let index = 1;index < array.length;index++) {
-        if(temp+1 === array[index]) {
-            temp = ++temp;
+    let correctIndices = [
+        ["00","01","02"],
+        ["00","11","22"],
+        ["00","10","20"],
+        ["01","11","21"],
+        ["02","12","22"],
+        ["10","11","12"],
+        ["20","21","22"],
+        ["20","11","02"],
+    ]
+    let count = 0;
+    let flag = false;
+    for(let arrayIndex=0;arrayIndex<correctIndices.length;arrayIndex++){
+        for(let index=0;index<3;index++){
+            if(array.includes(correctIndices[0][index])){
+                count++;
+            }    
+        }
+        if(count === 3) {
             flag = true;
-        } else {
-            flag = false;
+            break;
         }
-    }
-    temp = array[0];
-    
-    if(flag === false) {
-        for(let index = 1;index < array.length;index++) {
-            if(temp === array[index]) {
-                flag = true;
-            } else {
-                flag = false;
-            }
-        }
-    }
-    temp = array[0];
-    if(flag === false) {
-        for(let index = 1;index < array.length;index++) {
-            if(temp * 2 === array[index]) {
-                temp = temp * 2;
-                flag = true;
-            } else {
-                flag = false;
-            }
-        }   
+        count = 0;
     }
     return flag;
 }
@@ -159,11 +150,11 @@ function onBoxClick() {
         if(turn === "X") {
             newValue = 1;
             turn = "O";
-            xArray.push(parseInt(colIdx)+parseInt(rowIdx));
+            xArray.push(colIdx+rowIdx);
         } else {
             newValue = 2;
             turn = "X";
-            oArray.push(parseInt(colIdx)+parseInt(rowIdx));
+            oArray.push(colIdx+rowIdx);
         }
         grid[colIdx][rowIdx] = newValue;
         renderMainGrid();
