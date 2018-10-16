@@ -141,6 +141,7 @@ function checkLogics(array) {
 }
 
 function onBoxClick() {
+    document.getElementById("winner").innerHTML = "";
     xCount = 0;
     oCount = 0;
     var rowIdx = this.getAttribute("rowIdx");
